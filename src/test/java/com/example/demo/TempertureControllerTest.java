@@ -36,9 +36,8 @@ public class TempertureControllerTest {
 
     @Test
     public void addTemperature() {
-        Temperature testTemp = new Temperature();
+        RequestTemperature testTemp = new RequestTemperature("Een naam", 12);
 
-//        doNothing().when(temperatureService).addTemp(any(Temperature.class));
         temperatureController.addTemperature(testTemp);
         verify(temperatureService, times(1)).addTemp(any(Temperature.class));
     }
@@ -48,11 +47,13 @@ public class TempertureControllerTest {
         Temperature testTemp = new Temperature();
         ArgumentCaptor<Temperature> valueCapture = ArgumentCaptor.forClass(Temperature.class);
         testTemp.setDegrees(31);
+        RequestTemperature reqTemp = new RequestTemperature(testTemp.getName(), testTemp.getDegrees());
 
-        temperatureController.addTemperature(testTemp);
+        temperatureController.addTemperature(reqTemp);
         verify(temperatureService, times(1)).addTemp(valueCapture.capture());
         assertEquals(31, valueCapture.getValue().getDegrees());
         assertEquals(0, valueCapture.getValue().getId());
+        assertEquals(null, valueCapture.getValue().getName());
     }
 
 }

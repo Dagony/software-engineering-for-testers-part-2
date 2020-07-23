@@ -14,7 +14,6 @@ public class RequestTemperature {
     @NotNull(message = "yteetsdfs")
     private String name;
 
-    @NotNull(message = "degrees should not be null")
     @Min(value = -50, message = "Temp should not be below -50")
     @Max(value = 50, message = "Temp should not be above -50")
     private int degrees;
